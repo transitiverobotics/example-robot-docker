@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://transitiverobotics.com">
+    <img src="https://transitiverobotics.com/img/logo.svg" style="height: 64px">
+  </a>
+</p>
+
 # Transitive Robotics: Example Robot Docker
 
 A simple docker container to simulate a robot that installs and runs a Transitive agent.
