@@ -1,7 +1,6 @@
 {
   "global": {
     "rosReleases": ["noetic"],
-    "noRosCore": true,
-    "desiredPackages": ["@transitive-robotics/webrtc-video"]
+    "noRosCore": true
   }
 }

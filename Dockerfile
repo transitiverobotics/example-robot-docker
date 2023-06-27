@@ -1,24 +1,12 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE:-'ubuntu:20.04'}
+FROM ros:noetic
 
-RUN apt-get update && apt-get install -y iputils-ping curl git lsb-release gnupg vim
-
-# a sudo user, for testing
-RUN adduser -q --gecos "testuser" --disabled-password testuser
-RUN addgroup testuser sudo
-RUN echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-# a normal user, for testing
-RUN adduser -q --gecos "normaluser" --disabled-password normaluser
+# Install dependencies. This includes dependencies for webrtc-video and the capabilities using it (e.g., remote-teleop)
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils iputils-ping curl git lsb-release gnupg vim build-essential pkg-config fontconfig gobject-introspection gstreamer1.0-x gstreamer1.0-libav gstreamer1.0-nice gstreamer1.0-plugins-bad gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer1.0-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev libgirepository1.0-dev libc-dev libcairo2 libcairo2-dev
 
 WORKDIR /root/.transitive
 COPY config.json .
 
-ARG USERID
-ARG TOKEN
-ENV USERID=${USERID}
-ENV TOKEN=${TOKEN}
-RUN curl -sf "https://install.transitiverobotics.com?id=$USERID&token=$TOKEN&docker=true" > /tmp/install.sh
+RUN curl -sf "https://install.transitiverobotics.com?id=placeholder&token=placeholder&docker=true" > /tmp/install.sh
 
 # Install the agent
 RUN bash /tmp/install.sh
@@ -30,4 +18,4 @@ RUN bash /tmp/install.sh
 
 WORKDIR /root
 COPY entrypoint.sh .
-CMD ["./entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
