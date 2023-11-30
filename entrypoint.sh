@@ -33,7 +33,7 @@ if [[ ! -z $3 ]]; then
   if [[ "$3" == *local ]]; then
     # See https://github.com/transitiverobotics/transitive/blob/main/cloud/tools/mDNS/README.md
     echo "Using a .local install domain: adding mDNS support"
-    apt-get install -y avahi-utils
+    apt-get update && apt-get install -y avahi-utils
     sed -i "s/mdns4_minimal/mdns4 mdns4_minimal/" /etc/nsswitch.conf
     echo -e ".local.\n.local\n" >> /etc/mdns.allow
   fi
