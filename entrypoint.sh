@@ -30,6 +30,11 @@ if [[ ! -z $3 ]]; then
   echo "TR_INSTALL_HOST=$3" >> .env
   echo "TR_HOST=$HOST" >> .env
 
+  # update .npmrc to use local registry
+  echo "# Set our registry for our scoped packages" > .npmrc
+  echo "@transitive-robotics:registry=https://registry.transitiverobotics.com" >> .npmrc
+  echo "@local:registry=http://registry.$HOST" >> .npmrc
+
   if [[ "$3" == *local ]]; then
     # See https://github.com/transitiverobotics/transitive/blob/main/cloud/tools/mDNS/README.md
     echo "Using a .local install domain: adding mDNS support"
