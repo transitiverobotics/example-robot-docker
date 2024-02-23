@@ -27,13 +27,14 @@ if [[ ! -z $3 ]]; then
 
   # extract TR_HOST from install host
   HOST=$(echo $3 | sed 's/https\{0,1\}:\/\/install.//')
+  PROTO=$(echo $3 | cut -d ':' -f 1)
   echo "TR_INSTALL_HOST=$3" >> .env
   echo "TR_HOST=$HOST" >> .env
 
   # update .npmrc to use local registry
   echo "# Set our registry for our scoped packages" > .npmrc
   echo "@transitive-robotics:registry=https://registry.transitiverobotics.com" >> .npmrc
-  echo "@local:registry=http://registry.$HOST" >> .npmrc
+  echo "@local:registry=$PROTO://registry.$HOST" >> .npmrc
 
   if [[ "$3" == *local ]]; then
     # See https://github.com/transitiverobotics/transitive/blob/main/cloud/tools/mDNS/README.md
