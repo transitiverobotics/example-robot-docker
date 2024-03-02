@@ -16,6 +16,9 @@ RUN bash /tmp/install.sh
 # instead (you may need to fill in the name of your ROS2 distro):
 #RUN bash -c ". /opt/ros/*/setup.bash && /tmp/install.sh"
 
+# We need to clear but not delete the machine-id to avoid duplicate device Ids
+RUN echo "" > /etc/machine-id
+
 WORKDIR /root
 COPY entrypoint.sh .
 ENTRYPOINT ["./entrypoint.sh"]
