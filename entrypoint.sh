@@ -19,30 +19,28 @@ if [[ ! -z $2 ]]; then
 fi;
 
 if [[ ! -z $3 ]]; then
-  # A different install host was provided, mostly used for local dev.
-
-  # remove existing lines
-  sed -i '/^TR_INSTALL_HOST/d' .env;
-  sed -i '/^TR_HOST/d' .env;
+  # A different install host was provided, mostly used for local dev. Update
+  # .env and .npmrc and setup mDNS support. Compare to install.sh.
 
   # extract TR_HOST from install host
   HOST=$(echo $3 | sed 's/https\{0,1\}:\/\/install.//')
-  PROTO=$(echo $3 | cut -d ':' -f 1)
+
+  # Update .env
+  sed -i '/^TR_INSTALL_HOST/d' .env;
+  sed -i '/^TR_HOST/d' .env;
   echo "TR_INSTALL_HOST=$3" >> .env
   echo "TR_HOST=$HOST" >> .env
-
-  # update .npmrc to use local registry
-  echo "# Set our registry for our scoped packages" > .npmrc
-  echo "@transitive-robotics:registry=https://registry.transitiverobotics.com" >> .npmrc
-  echo "@local:registry=$PROTO://registry.$HOST" >> .npmrc
 
   if [[ "$3" == *local ]]; then
     # See https://github.com/transitiverobotics/transitive/blob/main/cloud/tools/mDNS/README.md
     echo "Using a .local install domain: adding mDNS support"
-    apt-get update && apt-get install -y avahi-utils
     sed -i "s/mdns4_minimal/mdns4 mdns4_minimal/" /etc/nsswitch.conf
     echo -e ".local.\n.local\n" >> /etc/mdns.allow
   fi
+
+  # update .npmrc from install host (this requires mDNS)
+  curl -sf $3/files/.npmrc -o .npmrc
+
 fi;
 
 . /opt/ros/noetic/setup.bash
