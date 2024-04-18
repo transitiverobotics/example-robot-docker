@@ -6,7 +6,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-util
 WORKDIR /root/.transitive
 COPY config.json .
 
-RUN curl -sf "https://install.transitiverobotics.com?id=placeholder&token=placeholder&docker=true" > /tmp/install.sh
+# RUN curl -sf "https://install.transitiverobotics.com?id=placeholder&token=placeholder&docker=true" > /tmp/install.sh
+ADD https://install.transitiverobotics.com?id=placeholder&token=placeholder&docker=true /tmp/install.sh
 
 # Install the agent
 RUN bash /tmp/install.sh
