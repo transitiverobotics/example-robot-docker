@@ -25,5 +25,6 @@ docker run -it --rm \
 --hostname robot_$NUMBER \
 -v $DIR:/root/.transitive \
 -v /run/udev:/run/udev \
+-v /var/run/dbus:/var/run/dbus -v /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket \
 --name robot \
-transitiverobotics/try $1 $2
+transitiverobotics/try $@
