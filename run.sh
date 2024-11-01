@@ -4,12 +4,21 @@
 # has the Transitive agent installed and connects to the account specified.
 #
 # Usage:
-# ./run.sh userId robotToken
+# ./run.sh userId robotToken [base image]
 
 set -e
 
+TAGNAME=
+BUILDARGS=
+if [[ $# > 2 ]]; then
+  TAGNAME+=_${3/:/-}
+  BUILDARGS+="--build-arg BASE_IMAGE=$3"
+fi;
+
+echo $BUILDARGS
+
 # --- build
-docker build -t transitiverobotics/try .
+docker build ${BUILDARGS} -t transitiverobotics/try${TAGNAME} .
 
 # --- run
 

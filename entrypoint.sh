@@ -46,4 +46,6 @@ fi;
 . /opt/ros/noetic/setup.bash
 roscore &
 
+roslaunch /opt/ros/noetic/share/leo_gazebo/launch/worlds/leo_marsyard2022_world.launch gui:=false &
+
 bash start_agent.sh
