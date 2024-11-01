@@ -5,7 +5,7 @@ FROM ${BASE_IMAGE:-'ros:noetic'}
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils iputils-ping curl git lsb-release gnupg vim build-essential pkg-config fontconfig gobject-introspection gstreamer1.0-x gstreamer1.0-libav gstreamer1.0-nice gstreamer1.0-plugins-bad gstreamer1.0-plugins-base-apps gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools libgstreamer1.0-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev libgirepository1.0-dev libc-dev libcairo2 libcairo2-dev avahi-utils
 
 # Install Leo gazebo simuator for demo purposes
-RUN apt-get update && apt-get install -y ros-noetic-leo-gazebo ros-noetic-leo-gazebo-worlds
+RUN apt-get update && apt-get install -y ros-noetic-leo-gazebo ros-noetic-leo-gazebo-worlds ros-noetic-rostime
 
 WORKDIR /root/.transitive
 COPY config.json .
