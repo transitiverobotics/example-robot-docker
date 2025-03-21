@@ -4,12 +4,15 @@
 # has the Transitive agent installed and connects to the account specified.
 #
 # Usage:
-# ./run.sh userId robotToken
+# ./run.sh rosDistro userId robotToken [installHost]
 
 set -e
 
+# first arg is ros distro
+ROS_DISTRO=$1
+
 # --- build
-docker build -t transitiverobotics/try .
+docker build --build-arg ROS_DISTRO=$ROS_DISTRO -t transitiverobotics/try .
 
 # --- run
 

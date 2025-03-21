@@ -1,6 +1,6 @@
 {
   "global": {
-    "rosReleases": ["noetic"],
+    "rosReleases": null,
     "noRosCore": true
   }
 }
