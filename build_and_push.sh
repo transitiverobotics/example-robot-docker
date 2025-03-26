@@ -13,5 +13,5 @@ docker buildx build \
     --builder mybuilder \
     --platform linux/amd64,linux/arm64 \
     --build-arg ROS_DISTRO=$ROS_DISTRO \
-    -t transitiverobotics/try \
+    -t transitiverobotics/try_$ROS_DISTRO \
     --push .
