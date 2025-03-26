@@ -44,4 +44,13 @@ if [[ ! -z $3 ]]; then
 fi;
 
 . /opt/ros/*/setup.bash
+
+if command -v rosversion &> /dev/null; then
+  if [[ $(rosversion -d) == "melodic" || $(rosversion -d) == "noetic" || $(rosversion -d) == "kinetic" ]]; then
+    echo "Detected ROS1 distribution. Starting roscore..."
+    roscore &
+  fi
+else
+  echo "rosversion command not found. Skipping ROS1-specific setup."
+fi
 bash start_agent.sh
