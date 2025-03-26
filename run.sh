@@ -12,7 +12,7 @@ set -e
 ROS_DISTRO=$1
 
 # --- build
-docker build --build-arg ROS_DISTRO=$ROS_DISTRO -t transitiverobotics/try .
+docker build --build-arg ROS_DISTRO=$ROS_DISTRO -t transitiverobotics/try_$ROS_DISTRO .
 
 # --- run
 
@@ -30,4 +30,4 @@ docker run -it --rm \
 -v /run/udev:/run/udev \
 -v /var/run/dbus:/var/run/dbus -v /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket \
 --name robot \
-transitiverobotics/try $@
+transitiverobotics/try_$ROS_DISTRO $2 $3 $4
