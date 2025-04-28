@@ -15,6 +15,9 @@ RUN chmod +x /tmp/install.sh
 # Install the agent
 RUN bash -c ". /opt/ros/${ROS_DISTRO}/setup.bash && /tmp/install.sh"
 
+# required by maps capability
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y ros-${ROS_DISTRO}-tf2-msgs
+
 # We need to clear but not delete the machine-id to avoid duplicate device Ids
 RUN echo "" > /etc/machine-id
 
