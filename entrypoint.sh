@@ -43,12 +43,12 @@ if [[ ! -z $3 ]]; then
 
 fi;
 
-. /opt/ros/*/setup.bash
+# . /opt/ros/*/setup.bash
 
+env | grep ^ROS
 if [[ $ROS_VERSION == 1 ]]; then
   echo "Detected ROS1. Starting roscore..."
   roscore &
-else
-  echo "Detected ROS2"
 fi
+
 bash start_agent.sh

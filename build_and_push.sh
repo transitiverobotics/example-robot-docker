@@ -13,10 +13,11 @@ fi;
 # first arg is ros distro
 ROS_DISTRO=$1
 
-
 docker buildx build \
     --builder mybuilder \
     --platform linux/amd64,linux/arm64 \
-    --build-arg ROS_DISTRO=$ROS_DISTRO \
+    --build-arg FROM=ros:$ROS_DISTRO \
     -t transitiverobotics/try_$ROS_DISTRO \
     --push .
+
+    # --build-arg ROS_DISTRO=$ROS_DISTRO \
